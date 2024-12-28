@@ -1,5 +1,4 @@
-Project Euler Solutions
-=======================
+# Project Euler Solutions
 
 This repository contains my solutions to the [Project
 Euler](https://projecteuler.net) challenge. These solutions are implemented in
@@ -10,9 +9,8 @@ solving the problems proposed by the [Project Euler](https://projecteuler.net).
 Please do not consult its contents if your goal is to solve the problems by
 yourself.
 
+## Contents
 
-Contents
---------
 The root level contains the following files and folders:
   * `README.md`: the text you are reading now.
   * `LICENSE.md`: the license text under which the repository contents are
@@ -23,17 +21,17 @@ The root level contains the following files and folders:
     the actual problem is computed and displayed together with some timing
     information; otherwise, the failure of the algorithm is reported. Just type
     `racket runme.rkt` in the root folder to run it.
-* `src/`: implementations of the solution(s) to the problems. That folder
-    contains files named as `euler-<tag>.rkt`, where tag is a number referring
-    to a problem and optionally followed by a letter designing an alternative
-    solution, if any. For instance `euler-1.rkt` is my preferred solution to the
-    first problem, while `euler-1b.rkt` and `euler-1c.rkt` are two alternatives.
-    Each source file contains a comprehensive description of the approach used.
-* `lib/`: implementation of general functionalities.
+* `challenges/`: solutions to the Euler challenges. That folder contains:
+    * Markdown files `euler-<id>.md`, where `id` corresponds to an Euler
+      problem. Each file states the problem and proposes one or multiple
+      approaches to solve it.
+    * Racket files `euler-<id><tag>.rkt`. Each file implements a specific
+      approach to solve the `<id>`'th Euler problem; `<tag>` refers to the
+      corresponding approach in `euler-<id>.md`.
+* `lib/`: implementation of general functionalities. That folder contains a set
+      of racket files together with their Markdown documentation files.
 
-
-License
--------
+## License
 
 The contents of this repository are released under the [MIT
 license](https://opensource.org/license/mit). See `LICENSE.md`.
