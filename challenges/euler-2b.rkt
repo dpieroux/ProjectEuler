@@ -13,10 +13,9 @@
 ;;;---------------------------------------------------------------------------------------------------
 
 (define (euler-2b bound)
-  (let ((seq-gen (mk-sequence-gen (\lambda (a0 a1) (+ (* 4 a1) a0)) 2 8)))
+  (let ((seq-gen (make-sequence-gen (\lambda (a0 a1) (+ (* 4 a1) a0)) 2 8)))
     (let loop ((m (seq-gen)) (acc 0))
       (if (<= m bound) (loop (seq-gen) (+ acc m)) acc))))
-
 
 ;;;---------------------------------------------------------------------------------------------------
 ;;; Runme interface

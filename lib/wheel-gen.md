@@ -1,7 +1,8 @@
 *# Module: wheel-gen
 
-This module implements the concept of number wheel generator, or wheel-gen for short. Such a generator
-is typically used to produce the sequence of the multiples, or the non-multiples, of a set of numbers.
+This module implements the concept of number wheel generator, or wheel-gen for
+short. Such a generator is typically used to produce the sequence of the
+multiples, or the non-multiples, of a set of numbers.
 
 ## Introduction
 
@@ -26,7 +27,6 @@ Similarly, the 6-sector wheel displaying the numbers 1 and 5 generates all the
 non-negative numbers that are a not a multiple of 2 or 3: 1, 5, 7, 11, 13, 17,
 19, 23, 25, 29...
 
-
 ## Functionalities 
 ### Wheel-gen interface
 
@@ -37,18 +37,17 @@ With `gen` being a wheel generator:
 * `(gen 'copy)` returns a deep copy of the  instance.
 
 ### Wheel-gen constructors
-* `(mk-wheel-gen elems size)` returns a wheel-gen with elements `elems` and size
-  `size`.
-* `(mk-multiples-gen ns)` returns a wheel-gen that produces the multiples of the
-  `ns` elements.
-* `(mk-non-multiples-gen ns)` returns a wheel-gen that produces the
+* `(make-wheel-gen elems size)` returns a wheel-gen with elements `elems` and
+  size `size`.
+* `(make-multiples-gen ns)` returns a wheel-gen that produces the multiples of
+  the `ns` elements.
+* `(make-non-multiples-gen ns)` returns a wheel-gen that produces the
   non-multiples of the `ns` elements.
 
 ### Example
 
 ```
-(define my-gen (mk-multiples-gen '(2 3)))
-(build-list 7 (λ (_) (my-gen)))
-
-=> '(1 5 7 11 13 17 19)
+> (define my-gen (make-multiples-gen '(2 3)))
+> (build-list 7 (λ (_) (my-gen)))
+(1 5 7 11 13 17 19)
 ````

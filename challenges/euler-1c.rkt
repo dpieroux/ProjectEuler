@@ -8,19 +8,17 @@
 
 (provide euler-1c test solve)
 
-
 ;;;---------------------------------------------------------------------------------------------------
 ;;; Algorithm
 ;;;---------------------------------------------------------------------------------------------------
 
 (define (euler-1c ns bound)
-  (let ((non-multiples-gen (mk-non-multiples-gen ns)))
+  (let ((non-multiples-gen (make-non-multiples-gen ns)))
     (- (/ (* bound (sub1 bound)) 2)
        (let loop ((m (non-multiples-gen 'next)) (acc 0))
          (if (< m bound)
              (loop (non-multiples-gen 'next) (+ acc m))
              acc)))))
-
 
 ;;;---------------------------------------------------------------------------------------------------
 ;;; Runme interface

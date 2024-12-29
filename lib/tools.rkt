@@ -1,8 +1,12 @@
+;;;---------------------------------------------------------------------------------------------------
+;;; Module: tools.rkt
+;;;---------------------------------------------------------------------------------------------------
+
 #lang racket
 
 (require racket/generator compatibility/mlist)
 
-(provide merge-increasing mk-sequence-gen)
+(provide merge-increasing make-sequence-gen)
 
 ;;;---------------------------------------------------------------------------------------------------
 ;;; merge-increasing
@@ -18,16 +22,14 @@
                         ((> n m) (iter      ns  (cdr ms) (cons m acc)))
                         (else    (iter (cdr ns) (cdr ms) (cons n acc)))))))))
 
-
-
 ;;;---------------------------------------------------------------------------------------------------
-;;; mk-sequence-gen
+;;; make-sequence-gen
 ;;;---------------------------------------------------------------------------------------------------
 
 ;;; (last-mpair ls) returns the last mpair of the 'ls' mlist.
 (define (last-mpair ls) (if (null? (mcdr ls)) ls (last-mpair (mcdr ls))))
 
-(define (mk-sequence-gen f . terms)
+(define (make-sequence-gen f . terms)
   (generator
    ()
    (let loop ((terms (list->mlist terms))) ; Convert to a mutable list to add new terms at its end.

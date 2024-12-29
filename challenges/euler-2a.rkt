@@ -19,7 +19,7 @@
         res)))
 
 (define (euler-2a bound)
-  (algo (mk-sequence-gen + 1 2) bound even? + 0))
+  (algo (make-sequence-gen + 1 2) bound even? + 0))
 
 ;;;---------------------------------------------------------------------------------------------------
 ;;; Runme interface

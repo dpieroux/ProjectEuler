@@ -13,7 +13,7 @@
 ;;;---------------------------------------------------------------------------------------------------
 
 (define (euler-1b ns bound)
-  (let ((multiples-gen (mk-multiples-gen ns)))
+  (let ((multiples-gen (make-multiples-gen ns)))
     (let loop ((m (multiples-gen 'next)) (acc 0))
       (if (< m bound)
           (loop (multiples-gen 'next) (+ acc m))

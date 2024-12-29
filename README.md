@@ -25,9 +25,9 @@ The root level contains the following files and folders:
     * Markdown files `euler-<id>.md`, where `id` corresponds to an Euler
       problem. Each file states the problem and proposes one or multiple
       approaches to solve it.
-    * Racket files `euler-<id><tag>.rkt`. Each file implements a specific
-      approach to solve the `<id>`'th Euler problem; `<tag>` refers to the
-      corresponding approach in `euler-<id>.md`.
+    * Racket files `euler-<id><v>.rkt`. Each file implements a specific approach
+      to solve the `<id>`'th Euler problem; `<v>` refers to the corresponding
+      approach in `euler-<id>.md`.
 * `lib/`: implementation of general functionalities. That folder contains a set
       of racket files together with their Markdown documentation files.
 

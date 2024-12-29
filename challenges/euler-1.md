@@ -9,7 +9,6 @@ Find the sum of all the multiples of $3$ or $5$ below $1000$
 
 Reference: https://projecteuler.net/problem=1
 
-
 ## Approach A
 
 **Generalisation:** Find the sum of all the naturals smaller than `bound`  and
@@ -32,8 +31,9 @@ wheel generator, and add them together on the fly using an accumulator.
 that are smaller than `bound`.
 
 
-1. Generate all the _non_-multiples of the `ns` numbers up to `bound` excluded using
-   a wheel generator, and add them together on the fly using an accumulator.
+1. Generate all the _non_-multiples of the `ns` numbers up to `bound` excluded
+   using a wheel generator, and add them together on the fly using an
+   accumulator.
 2. Subtract the sum obtained from the sum of all numbers from 1 to `bound`
    excluded, which is given by (`bound`-1)*`bound`/2. 
 
@@ -51,11 +51,11 @@ efficient generation of all the multiples of a set of numbers. See the
 `wheel-gen` module.
 
 The approach C takes the opposite view of approach B. It generates the numbers
-that don't fulfil the be-a-multiple-of condition, and subtract them for the sum of
-all the number smaller than `bound`.
+that don't fulfil the be-a-multiple-of condition, and subtract them for the sum
+of all the number smaller than `bound`.
 
 Which of the approaches B and C is better depends on the circumstances. If the
 fraction of the multiples to consider is less than 50% of the naturals, then
 approach B is better; otherwise it is approach C. In the context of the Euler
-problem, the common multiples of 3 and 5 represent 1/3 + 1/5 - 1/15 = 7/15 of the
-numbers, so approach B is better in this case.
+problem, the common multiples of 3 and 5 represent 1/3 + 1/5 - 1/15 = 7/15 of
+the numbers, so approach B is better in this case.
