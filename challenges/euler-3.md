@@ -8,7 +8,7 @@ What is the largest prime factor of the number $600851475143$?
 
 Reference: https://projecteuler.net/problem=3
 
-## Approach 
+## Algorithm 
 
 **Generalisation:** Find the largest prime factor of any positive number `n`.
 

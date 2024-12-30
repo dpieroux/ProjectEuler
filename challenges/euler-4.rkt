@@ -1,11 +1,11 @@
 ;;;---------------------------------------------------------------------------------------------------
-;;; Project Euler 3: Largest Prime Factor
+;;; Project Euler 4: Largest Palindrome Product
 ;;;---------------------------------------------------------------------------------------------------
 
-#lang racket/base
+#lang racket
 
-(require (only-in racket/list last))
-(require math/number-theory)
+(require "../lib/tools.rkt")
+(require "../lib/base.rkt")
 
 (provide test solve)
 
@@ -14,12 +14,21 @@
 ;;; Solution
 ;;;---------------------------------------------------------------------------------------------------
 
-(define (euler n) (car (last (factorize n))))
+(define (euler n)
+  (let ((top (sub1 (expt 10 n)))
+        (bot (sub1 (expt 10 (sub1 n)))))
+    (for*/fold ([current -1])
+               ([i (in-range top bot -1)]
+                #:break (<= (* i top) current)
+                [j (in-range top (sub1 i) -1)]
+                [p (list (* i j))]
+                #:when (palindrome? (digits p)))
+      (max current p))))
 
 
 ;;;---------------------------------------------------------------------------------------------------
 ;;; Runme interface
 ;;;---------------------------------------------------------------------------------------------------
 
-(define (test) (= 29 (euler 29)))
-(define (solve) (euler 600851475143))
+(define (test) (= 9009 (euler 2)))
+(define (solve) (euler 3))

@@ -6,7 +6,8 @@
 
 (require racket/generator compatibility/mlist)
 
-(provide merge-increasing make-sequence-gen)
+(provide merge-increasing make-sequence-gen palindrome?)
+
 
 ;;;---------------------------------------------------------------------------------------------------
 ;;; merge-increasing
@@ -22,6 +23,7 @@
                         ((> n m) (iter      ns  (cdr ms) (cons m acc)))
                         (else    (iter (cdr ns) (cdr ms) (cons n acc)))))))))
 
+
 ;;;---------------------------------------------------------------------------------------------------
 ;;; make-sequence-gen
 ;;;---------------------------------------------------------------------------------------------------
@@ -36,3 +38,13 @@
      (yield (mcar terms))
      (set-mcdr! (last-mpair terms) (mlist (apply f (mlist->list terms))))
      (loop (mcdr terms)))))
+
+
+;;;---------------------------------------------------------------------------------------------------
+;;; palindrome?
+;;;---------------------------------------------------------------------------------------------------
+
+(define (palindrome? ls)
+         (let ((len (length ls)))           
+           (let-values (((l r) (split-at ls (quotient len 2))))
+             (equal? (reverse l) (if (even? len) r (cdr r))))))

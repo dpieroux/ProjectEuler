@@ -15,6 +15,7 @@
 (define root-dir (call-with-values (λ () (split-path basedir)) (λ ls (car ls))))
 (define src-dir (build-path root-dir "challenges" ))
 
+
 ;;;---------------------------------------------------------------------------------------------------
 ;;; Define regexps
 ;;;---------------------------------------------------------------------------------------------------
@@ -23,6 +24,7 @@
 (define id-ver-rx #px"\\d+[a-z]?")
 (define id-rx  #px"\\d+")
 (define ver-rx #px"[a-z]*$")
+
 
 ;;;---------------------------------------------------------------------------------------------------
 ;;; Reporting function
@@ -34,6 +36,7 @@
       (printf "SUCCESS! Solved: ~a.\n" ok)
       (printf "FAILURE! Solved: ~a; failed: ~a.\n" ok nok))
   (displayln "----------------------------------------------"))
+
 
 ;;;---------------------------------------------------------------------------------------------------
 ;;; Main program
@@ -68,6 +71,7 @@
                     [else (displayln "failure! |")
                            (loop other-paths ok (add1 nok))]))
               (loop other-paths ok nok))))))
+
 
 ;;;---------------------------------------------------------------------------------------------------
 ;;; Execute the main program

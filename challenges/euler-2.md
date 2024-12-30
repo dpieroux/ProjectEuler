@@ -11,7 +11,7 @@ four million, find the sum of the even-valued terms.
 
 Reference: https://projecteuler.net/problem=2
 
-## Approach A
+## Algorithm A
 
 **Generalisation:** For any increasing sequence, accumulate in a given way the
 terms whose values do not exceed `bound` and that fulfil a condition.
@@ -19,7 +19,7 @@ terms whose values do not exceed `bound` and that fulfil a condition.
 Generate all the terms of the sequence up to `bound` included and accumulate
 those that fulfil the condition.
 
-## Approach B
+## Algorithm B
 
 **Generalisation:** Find the sum of the even terms in the Fibonacci sequence
 whose values do not exceed `bound`.
@@ -46,10 +46,10 @@ included and adding them together in an accumulator.
 
 ## Discussion
 
-Approach A is fairly general, but it is efficient only if a fair fraction of the
-terms of the sequence fulfil the condition. In the case of the Fibonacci
+Algorithm A is fairly general, but it is efficient only if a fair fraction of
+the terms of the sequence fulfil the condition. In the case of the Fibonacci
 sequence, only 1 term out of three is even.
 
-Approach B is more efficient, but it requires that the terms that fulfil the
+Algorithm B is more efficient, but it requires that the terms that fulfil the
 condition (here: to be even) can be generated directly from previous terms which
 also fulfil that condition.
