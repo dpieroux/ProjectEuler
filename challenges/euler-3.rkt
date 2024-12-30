@@ -1,10 +1,11 @@
 ;;;---------------------------------------------------------------------------------------------------
-;;; Project Euler 2 (Approach A)
+;;; Project Euler 3
 ;;;---------------------------------------------------------------------------------------------------
 
 #lang racket/base
 
-(require "../lib/tools.rkt")
+(require (only-in racket/list last))
+(require math/number-theory)
 
 (provide test solve)
 
@@ -12,18 +13,11 @@
 ;;; Algorithm
 ;;;---------------------------------------------------------------------------------------------------
 
-(define (algo seq-gen bound predicate accumulator initial)
-  (let loop ((m (seq-gen)) (res initial))
-    (if (<= m bound)
-        (loop (seq-gen) (if (predicate m) (accumulator m res) res))
-        res)))
-
-(define (euler bound)
-  (algo (make-sequence-gen + 1 2) bound even? + 0))
+(define (euler n) (car (last (factorize n))))
 
 ;;;---------------------------------------------------------------------------------------------------
 ;;; Runme interface
 ;;;---------------------------------------------------------------------------------------------------
 
-(define (test) (= 44 (euler 100)))
-(define (solve) (euler 4000000))
+(define (test) (= 29 (euler 29)))
+(define (solve) (euler 600851475143))

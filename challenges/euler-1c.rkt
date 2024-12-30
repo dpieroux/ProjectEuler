@@ -1,18 +1,18 @@
 ;;;---------------------------------------------------------------------------------------------------
-;;; Project Euler 1 (Approach c)
+;;; Project Euler 1 (Approach C)
 ;;;---------------------------------------------------------------------------------------------------
 
 #lang racket/base
 
 (require "../lib/wheel-gen.rkt")
 
-(provide euler-1c test solve)
+(provide test solve)
 
 ;;;---------------------------------------------------------------------------------------------------
 ;;; Algorithm
 ;;;---------------------------------------------------------------------------------------------------
 
-(define (euler-1c ns bound)
+(define (euler ns bound)
   (let ((non-multiples-gen (make-non-multiples-gen ns)))
     (- (/ (* bound (sub1 bound)) 2)
        (let loop ((m (non-multiples-gen 'next)) (acc 0))
@@ -24,5 +24,5 @@
 ;;; Runme interface
 ;;;---------------------------------------------------------------------------------------------------
 
-(define (test) (= 23 (euler-1c '(3 5) 10)))
-(define (solve) (euler-1c '(3 5) 1000))
+(define (test) (= 23 (euler '(3 5) 10)))
+(define (solve) (euler '(3 5) 1000))

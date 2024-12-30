@@ -3,7 +3,7 @@
 This module implements generic functionalities that are not of mathematical
 nature.
 
-## Functionalities
+## Functionality overview
 
 * `(merge-increasing ns ms)` merges the lists `ns` and `ms` of strictly
   increasing numbers. The result list is also strictly increasing. As a

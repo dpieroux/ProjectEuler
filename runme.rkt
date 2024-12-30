@@ -19,10 +19,10 @@
 ;;; Define regexps
 ;;;---------------------------------------------------------------------------------------------------
 
-(define euler-src-file-rx #px".*euler-\\d+\\w[.]rkt$")
-(define id-tag-rx #px"\\d+\\w")
+(define euler-src-file-rx #px".*euler-\\d+\\w?[.]rkt$")
+(define id-ver-rx #px"\\d+[a-z]?")
 (define id-rx  #px"\\d+")
-(define tag-rx #px"[a-z]")
+(define ver-rx #px"[a-z]*$")
 
 ;;;---------------------------------------------------------------------------------------------------
 ;;; Reporting function
@@ -52,20 +52,21 @@
               (other-paths (cdr paths)))
           (if (regexp-match? euler-src-file-rx current-path)
               (let* ((afile (path->string current-path))
-                     (id-tag (car (regexp-match id-tag-rx afile)))
-                     (id  (car (regexp-match id-rx id-tag)))
-                     (tag (car (regexp-match tag-rx id-tag)))
+                     (id-ver (car (regexp-match id-ver-rx afile)))
+                     (id  (car (regexp-match id-rx id-ver)))
+                     (ver (car (regexp-match ver-rx id-ver)))
                      (test`(,(dynamic-require current-path 'test)))
                      (solve `(,(dynamic-require current-path 'solve))))
-                (printf " ~a~a | " (~a id #:width 3 #:align 'right) (~a tag #:width 1))
-                (if (eval test)
-                    (begin (let-values (((result cpu wall gc) (time-apply (λ () (eval solve)) '())))
+                (printf " ~a~a | " (~a id #:width 3 #:align 'right) (~a ver #:width 1))
+                (cond [(eval test)
+                    (let-values (((result cpu wall gc) (time-apply (λ () (eval solve)) '())))
                              (printf "~a | ~a \n"
                                      (~a (car result) #:width 8 #:align 'right)
                                      (~a (format "~a / ~a / ~a" cpu wall gc))))
-                           (loop other-paths (if (string=? tag "a") (add1 ok) ok) nok))
-                    (begin (displayln "failure! |")
-                           (loop other-paths ok (add1 nok)))))
+                           (loop other-paths
+                                 (if (or (string=? ver "") (string=? ver "a")) (add1 ok) ok) nok)]
+                    [else (displayln "failure! |")
+                           (loop other-paths ok (add1 nok))]))
               (loop other-paths ok nok))))))
 
 ;;;---------------------------------------------------------------------------------------------------

@@ -6,13 +6,13 @@
 
 (require "../lib/tools.rkt")
 
-(provide euler-2b test solve)
+(provide test solve)
 
 ;;;---------------------------------------------------------------------------------------------------
 ;;; Algorithm
 ;;;---------------------------------------------------------------------------------------------------
 
-(define (euler-2b bound)
+(define (euler bound)
   (let ((seq-gen (make-sequence-gen (\lambda (a0 a1) (+ (* 4 a1) a0)) 2 8)))
     (let loop ((m (seq-gen)) (acc 0))
       (if (<= m bound) (loop (seq-gen) (+ acc m)) acc))))
@@ -21,5 +21,5 @@
 ;;; Runme interface
 ;;;---------------------------------------------------------------------------------------------------
 
-(define (test) (= 44 (euler-2b 100)))
-(define (solve) (euler-2b 4000000))
+(define (test) (= 44 (euler 100)))
+(define (solve) (euler 4000000))

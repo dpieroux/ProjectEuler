@@ -6,13 +6,13 @@
 
 (require "../lib/wheel-gen.rkt")
 
-(provide euler-1b test solve)
+(provide test solve)
 
 ;;;---------------------------------------------------------------------------------------------------
 ;;; Algorithm
 ;;;---------------------------------------------------------------------------------------------------
 
-(define (euler-1b ns bound)
+(define (euler ns bound)
   (let ((multiples-gen (make-multiples-gen ns)))
     (let loop ((m (multiples-gen 'next)) (acc 0))
       (if (< m bound)
@@ -23,5 +23,5 @@
 ;;; Runme interface
 ;;;---------------------------------------------------------------------------------------------------
 
-(define (test) (= 23 (euler-1b '(3 5) 10)))
-(define (solve) (euler-1b '(3 5) 1000))
+(define (test) (= 23 (euler '(3 5) 10)))
+(define (solve) (euler '(3 5) 1000))
