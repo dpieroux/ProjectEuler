@@ -9,39 +9,51 @@ Find the sum of all the multiples of $3$ or $5$ below $1000$
 
 Reference: https://projecteuler.net/problem=1
 
+## Reformulation
+
+Let $N$ be a natural number and $L$ a list of numbers, find the sum $\sigma$ of
+the natural numbers $n<N$ such that $n$ is a multiple of an element of $L$.
+
 ## Algorithm A
 
-**Generalisation:** Find the sum of all the naturals smaller than `bound`  and
-that are a multiple of at least one number contained in the list `ns` .
-
-Iterate over all the naturals smaller than `bound` and add together on the fly
-those that are multiple of at least one of the `ns` in an accumulator.
+This algorithm is a direct implementation of the reformulated statement:
+1. Let $\sigma\leftarrow 0$.
+2. For $n$ in $1\ldots N$: 
+   1. $\sigma\leftarrow s+n$ If $n$ is a multiple of any element of $l$.
 
 ## Algorithm B
 
-**Generalisation:** Find the sum of all the multiples of the numbers in `ns`
-that are smaller than `bound`.
+Generates all the multiples $m$ of the numbers in $L$ up to $N$ excluded using a
+wheel generator, and add them together on the fly using an accumulator $\sigma$.
 
-Generates all the multiples of the `ns` numbers up to `bound` excluded using a
-wheel generator, and add them together on the fly using an accumulator.
+1. Let $\sigma\leftarrow 0$.
+2. For each $m$ multiple of an element of $L$, in increasing order:
+   1. If $m < N$, 
+      1. Update $\sigma\leftarrow \sigma+m$
+      2. Loop back to 2.
+   2. Otherwise, the solution is $\sigma$.
+
 
 ## Algorithm C
 
-**Generalisation:** Find the sum of all the multiples of the numbers in `ns`
-that are smaller than `bound`.
+Generate all the _non_-multiples m of the elements of $L$ up to $N$ excluded
+using a wheel generator, and add them together on the fly using an accumulator
+$\sigma$. Then, Subtract $\sigma$ from the sum of all numbers from 1 to $N$,
+which is given by $(N-1)N/2$. 
 
-
-1. Generate all the _non_-multiples of the `ns` numbers up to `bound` excluded
-   using a wheel generator, and add them together on the fly using an
-   accumulator.
-2. Subtract the sum obtained from the sum of all numbers from 1 to `bound`
-   excluded, which is given by (`bound`-1)*`bound`/2. 
+1. Let $\sigma\leftarrow 0$.
+2. For each $m$ non-multiple of an element of $L$, in increasing order:
+   1. If $m < N$, 
+      1. Update $\sigma\leftarrow \sigma+m$ 
+      2. Loop back to 2.
+   2. Otherwise, exit the loop.
+3. The solution is $(N-1)N/2 - \sigma$
 
 ## Discussion
 
 Algorithm A is the most simple of all the approaches as it does not require a
 generator for the (non-)multiples of a set of numbers. The only thing to care of
-is to stop checking if the current number is a multiple of a number in `ns` as
+is to stop checking if the current number is a multiple of a number in $L$ as
 soon as such a number has been found. That being said, it is also somewhat
 inefficient as it spends time checking numbers for being-a-multiple and
 rejecting some of them.
@@ -51,7 +63,7 @@ generation of all the multiples of a set of numbers. See the `wheel-gen` module.
 
 Algorithm C takes the opposite view of algorithm B. It generates the numbers
 that don't fulfil the be-a-multiple-of condition, and subtract them for the sum
-of all the number smaller than `bound`.
+of all the number smaller than $N$.
 
 Which of the approaches B and C is better depends on the circumstances. If the
 fraction of the multiples to consider is less than 50% of the naturals, then

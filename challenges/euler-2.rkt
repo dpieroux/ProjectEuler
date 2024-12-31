@@ -1,5 +1,5 @@
 ;;;---------------------------------------------------------------------------------------------------
-;;; Project Euler 2: Even Fibonacci Numbers (Approach B)
+;;; Project Euler 2: Even Fibonacci Numbers
 ;;;---------------------------------------------------------------------------------------------------
 
 #lang racket/base
@@ -15,8 +15,8 @@
 
 (define (euler bound)
   (let ((seq-gen (make-sequence-gen (\lambda (a0 a1) (+ (* 4 a1) a0)) 2 8)))
-    (let loop ((m (seq-gen)) (acc 0))
-      (if (<= m bound) (loop (seq-gen) (+ acc m)) acc))))
+    (let loop ((t (seq-gen)) (acc 0))
+      (if (<= t bound) (loop (seq-gen) (+ acc t)) acc))))
 
 
 ;;;---------------------------------------------------------------------------------------------------

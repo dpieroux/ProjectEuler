@@ -33,7 +33,7 @@ With this in mind, the algorithm is as follows:
       3. Loop back to 2.
    3. Otherwise, the solution is $s$.
    
-# Discussion
+## Discussion
 
 $s$ is nothing else than the least common multiple (lcm) of the numbers from $1$
 to $n$. Since Racket provides a `lcm` function, a trivial implementation

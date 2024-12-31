@@ -8,8 +8,10 @@ What is the largest prime factor of the number $600851475143$?
 
 Reference: https://projecteuler.net/problem=3
 
+## Reformulation
+
+Find the largest prime factor of any positive number $n$.
+
 ## Algorithm 
 
-**Generalisation:** Find the largest prime factor of any positive number `n`.
-
-Factorise `n` into its prime factors and return the largest prime factor.
+Simply factorise $n$ into its prime factors and return its largest prime factor.
