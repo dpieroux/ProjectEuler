@@ -10,10 +10,12 @@ no remainder) by all of the numbers from $1$ to $20$?
 
 Reference: https://projecteuler.net/problem=5
 
-## Algorithm 
+## Reformulation
 
-**Reformulation:** Find the smallest positive number $s$ that is evenly
-divisible by all of the numbers from $1$ to $n$.
+Find the smallest positive number $s$ that is evenly divisible by all of the
+numbers from $1$ to $n$.
+
+## Algorithm 
 
 Let $p \le n$ be a prime number and $e$ the greatest natural such that $p^e \le
 n$. Obviously, $p^e$ being in the range $1\ldots n$, $s$ must be divisible by
