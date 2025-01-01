@@ -41,4 +41,6 @@ $\sigma$.
    1. If $a\le N$, 
       1. Update $\sigma\leftarrow \sigma+a$
       2. Loop back at 2.
-   2. Otherwise the solution is $\sigma$.
+   2. Otherwise the algorithm ends.
+
+At the completion of the algorithm, the solution is $\sigma$.

@@ -33,7 +33,9 @@ With this in mind, the algorithm is as follows:
          2. While $q \le ⌊n/p⌋$: $q \leftarrow q p$.                  
       2. Update $s \leftarrow sq$.
       3. Loop back to 2.
-   3. Otherwise, the solution is $s$.
+   3. Otherwise, the algorithm ends.
+
+At the completion of the algorithm, the solution is $s$.
    
 ## Discussion
 
