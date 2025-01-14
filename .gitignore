@@ -1,4 +1,5 @@
 *.bak
+*~
 compiled
 *.code-workspace
 .vscode

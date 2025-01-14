@@ -1,97 +1,108 @@
 #lang racket/base
 
-(provide make-heap heap-empty? heap-min heap-add! heap-remove-min! heap-update-min!)
+(provide make-heap heap-empty? heap-min 
+         heap-add! heap-remove-min! heap-update-min!
+         heap-clone)
 
-(require racket/match)
+(struct Node (val weight left right) #:mutable #:transparent)
 
-(struct node (val weight left right) #:mutable #:transparent)
-
-(define (make-null-node) (node #f 0 #f #f))
+(define (make-null-node) (Node #f 0 #f #f))
 
 (define (left node) 
-  (or (node-left node)
+  (or (Node-left node)
       (let ([new-node (make-null-node)])
-        (set-node-left! node new-node) new-node)))
+        (set-Node-left! node new-node) new-node)))
 
 (define (right node)
-  (or (node-right node)
+  (or (Node-right node)
       (let ([new-node (make-null-node)])
-        (set-node-right! node new-node) new-node)))
+        (set-Node-right! node new-node) new-node)))
   
-(define (node-null? node) (zero? (node-weight node)))
+(define (empty-node? node) (zero? (Node-weight node)))
 
-(struct heap (top prior?) #:transparent)
+(define (node-copy node clone-val)
+  (let iter ((node node))
+    (cond ((not node) #f) 
+          ((empty-node? node) (make-null-node))
+          (else (Node (clone-val (Node-val node))
+                      (Node-weight node)
+                      (iter (Node-left node))
+                      (iter (Node-right node)))))))
 
-(define (make-heap prior?)
-  (heap (make-null-node) prior?))
+(struct Heap (top smaller? clone) #:transparent)
+
+(define (make-heap smaller? (clone 'none))
+  (Heap (make-null-node) smaller? clone))
 
 (define (heap-empty? heap)
-  (node-null? (heap-top heap)))
+  (empty-node? (Heap-top heap)))
 
 (define (heap-min heap)
-  (node-val (heap-top heap)))
+  (Node-val (Heap-top heap)))
 
 (define (heap-add! heap val)
-  (let ([prior? (heap-prior? heap)])
+  (let ([smaller? (Heap-smaller? heap)])
     
     (define (node-insert! node val)
-      (let ([weight (node-weight node)]
-            [cur    (node-val node)])
-        (cond [(zero? weight)  (set-node-val! node val)]
-              [(prior? val cur) (select-branch-and-insert! node cur)
-                                (set-node-val! node val)]
+      (let ([weight (Node-weight node)]
+            [cur    (Node-val node)])
+        (cond [(zero? weight)  (set-Node-val! node val)]
+              [(smaller? val cur) (select-branch-and-insert! node cur)
+                                (set-Node-val! node val)]
               [else (select-branch-and-insert! node val)])
-        (set-node-weight! node (add1 weight))))
+        (set-Node-weight! node (add1 weight))))
 
     (define (select-branch-and-insert! node val)
       (let ([l-node (left node)]
             [r-node (right node)])
 
-        (if (< (node-weight r-node) (node-weight l-node))
+        (if (< (Node-weight r-node) (Node-weight l-node))
             (node-insert! r-node val)
             (node-insert! l-node val))))
   
-    (node-insert! (heap-top heap) val)))
+    (node-insert! (Heap-top heap) val)))
 
 (define (heap-remove-min! heap)
-  (let ([prior? (heap-prior? heap)])
+  (let ([smaller? (Heap-smaller? heap)])
     (define (node-rm! node)
-      (let ([weight (node-weight node)]
+      (let ([weight (Node-weight node)]
             [l-node (left node)]
             [r-node (right node)])
         (when (< 1 weight)
-          (merge! (if (or (node-null? l-node)
-                          (and (not (node-null? r-node))
-                               (prior? (node-val r-node) (node-val l-node))))
+          (merge! (if (or (empty-node? l-node)
+                          (and (not (empty-node? r-node))
+                               (smaller? (Node-val r-node) (Node-val l-node))))
                       r-node
                       l-node)
                   node))          
-        (set-node-weight! node (sub1 weight))))
+        (set-Node-weight! node (sub1 weight))))
 
     (define (merge! branch node)
-      (set-node-val! node (node-val branch))
+      (set-Node-val! node (Node-val branch))
       (node-rm! branch))
   
-    (when (node-null? (heap-top heap)) (error "heap/remove-min!: empty heap"))
-    (node-rm! (heap-top heap))))
+    (when (empty-node? (Heap-top heap)) (error "heap/remove-min!: empty heap"))
+    (node-rm! (Heap-top heap))))
 
 
 (define (heap-update-min! heap val)
-  (let ([prior? (heap-prior? heap)])
+  (let ([smaller? (Heap-smaller? heap)])
 
     (define (node-relocate! node val)
       (let* ([l-node (left  node)]
              [r-node (right node)]
-             [child (cond [(node-null? l-node) r-node]
-                          [(node-null? r-node) l-node]
-                          [(prior? (node-val l-node) (node-val r-node)) l-node]
+             [child (cond [(empty-node? l-node) r-node]
+                          [(empty-node? r-node) l-node]
+                          [(smaller? (Node-val l-node) (Node-val r-node)) l-node]
                           [else r-node])]
-             [child-val   (node-val child)])
+             [child-val   (Node-val child)])
 
-        (cond [(prior? child-val val) (set-node-val! node child-val)
+        (cond [(smaller? child-val val) (set-Node-val! node child-val)
                                       (node-relocate! child val)]
-              [else (set-node-val! node val)])))
-
+              [else (set-Node-val! node val)])))
       
-    (when (node-null? (heap-top heap)) (error "heap/remove-add-min!: empty heap"))
-    (node-relocate! (heap-top heap) val)))
+    (when (empty-node? (Heap-top heap)) (error "heap/remove-add-min!: empty heap"))
+    (node-relocate! (Heap-top heap) val)))
+
+(define (heap-clone heap)
+  (struct-copy Heap heap (top (node-copy (Heap-top heap) (Heap-clone heap)))))

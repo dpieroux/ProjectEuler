@@ -4,8 +4,6 @@
 
 #lang racket
 
-(require racket/generator)
-
 (require "base.rkt")
 
 (provide make-wheel-gen make-multiples-gen make-non-multiples-gen)
@@ -31,9 +29,9 @@
 
         ['current current]
         
-        ['copy (make-new current elems size rest offset)]
+        ['clone (make-new current elems size rest offset)]
             
-        [_ (error 'wheel-gen "Unknwon command: ~a" arg)])))
+        [_ (error 'wheel-gen "Unknown command: ~a" arg)])))
 
   (make-new 'none elems size elems 0))
 

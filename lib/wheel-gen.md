@@ -1,4 +1,4 @@
-*# Module: wheel-gen
+# Module: wheel-gen
 
 This module implements the concept of number wheel generator, or wheel-gen for
 short. Such a generator is typically used to produce the sequence of the
@@ -34,7 +34,7 @@ With `gen` being a wheel generator:
 * `(gen 'next)` produces the next element and returns it.
 * `(gen 'current)` returns the latest produced element, or `#f` if no element
   has been produced yet.
-* `(gen 'copy)` returns a deep copy of the  instance.
+* `(gen 'clone)` returns a deep copy of the  instance.
 
 ### Wheel-gen constructors
 * `(make-wheel-gen elems size)` returns a wheel-gen with elements `elems` and

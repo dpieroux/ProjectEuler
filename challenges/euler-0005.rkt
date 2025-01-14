@@ -6,7 +6,7 @@
 
 (provide test solve)
 
-(require "../lib/prime-gen2.rkt")
+(require "../lib/prime-gen.rkt")
 
 
 ;;;---------------------------------------------------------------------------------------------------
@@ -14,7 +14,7 @@
 ;;;---------------------------------------------------------------------------------------------------
 
 (define (euler n)
-  (let ((p-gen (make-prime-gen)))
+  (let ((p-gen (make-prime-gen2)))
     (let loop ((s 1)
                (p (p-gen 'next)))
       (if (<= p n)
