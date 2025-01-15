@@ -1,16 +1,32 @@
 ;;;---------------------------------------------------------------------------------------------------
-;;; Module: prime-gen1.rkt
+;;; Module: primes.rkt
 ;;;---------------------------------------------------------------------------------------------------
 
 #lang racket/base
 
-(provide make-prime-gen1 make-prime-gen2 make-prime-gen3)
+(provide prime-sieve make-prime-gen1 make-prime-gen2 make-prime-gen3)
 
-(require math/number-theory racket/match "heap.rkt" "wheel-gen.rkt")
+(require data/bit-vector math/number-theory racket/match 
+         "heap.rkt" "wheel-gen.rkt")
 
 
 ;;;---------------------------------------------------------------------------------------------------
-;;; make-prime-gen1
+;;; Sieve of Eratosthenes
+;;;---------------------------------------------------------------------------------------------------
+
+(define (prime-sieve n)
+  (let* ([sieve (make-bit-vector n #t)])
+    (bit-vector-set! sieve 0 #f) ; 0 is not prime
+    (bit-vector-set! sieve 1 #f) ; 1 is not prime
+    (for ([i (in-range (add1 (integer-sqrt n)))])
+      (when (bit-vector-ref sieve i)
+        (for ([j (in-range (* 2 i) n i)])
+          (bit-vector-set! sieve j #f))))
+    sieve))
+
+
+;;;---------------------------------------------------------------------------------------------------
+;;; Prime generator 1
 ;;;---------------------------------------------------------------------------------------------------
 
 (define (make-prime-gen1)
@@ -40,7 +56,7 @@
 
 
 ;;;---------------------------------------------------------------------------------------------------
-;;; make-prime-gen2
+;;; Prime generator 2
 ;;;---------------------------------------------------------------------------------------------------
 
 (define (make-prime-gen2 (fst-primes '(2 3 5 7 11)))
@@ -87,7 +103,7 @@
 
 
 ;;;---------------------------------------------------------------------------------------------------
-;;; make-prime-gen3
+;;; Prime generator 3
 ;;;---------------------------------------------------------------------------------------------------
 
 (define (make-multiple-prime-gen wheel-gen)

@@ -28,7 +28,7 @@
 ;;; make-sequence-gen
 ;;;---------------------------------------------------------------------------------------------------
 
-;;; (last-mpair ls) returns the last mpair of the 'ls' mlist.
+;;; (last-pair ls) returns the last mpair of the 'ls' mlist.
 (define (last-mpair ls) (if (null? (mcdr ls)) ls (last-mpair (mcdr ls))))
 
 (define (make-sequence-gen f . terms)

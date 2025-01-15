@@ -6,7 +6,7 @@
 
 (provide test solve)
 
-(require "../lib/prime-gen.rkt")
+(require data/bit-vector "../lib/primes.rkt")
 
 
 ;;;---------------------------------------------------------------------------------------------------
@@ -14,12 +14,10 @@
 ;;;---------------------------------------------------------------------------------------------------
 
 (define (euler n)
-  (let ([gen (make-prime-gen2)])
-    (let loop ([s   0]
-               [p (gen 'next)])
-      (if (< p n)
-          (loop (+ s p) (gen 'next))
-          s))))
+  (let ([sieve (prime-sieve n)])
+    (for/sum ([i (in-range n)]
+              #:when (bit-vector-ref sieve i))
+      i)))
 
 
 ;;;---------------------------------------------------------------------------------------------------

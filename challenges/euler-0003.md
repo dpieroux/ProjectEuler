@@ -14,4 +14,4 @@ Find the largest prime factor of any positive number $n$.
 
 ## Algorithm 
 
-Simply factorise $n$ into its prime factors and return its largest prime factor.
+Simply factorize $n$ into its prime factors and return its largest prime factor.
