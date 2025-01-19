@@ -4,7 +4,7 @@
 
 #lang racket/base
 
-(provide test solve)
+(provide test solve euler-8)
 
 (require racket/list)
 (require "../lib/base.rkt")
@@ -35,11 +35,11 @@
           (loop (if (null? bs) bs (cdr bs))
                 (if (null? as) res (cons as res)))))))
 
-(define (euler n ls)
-  (apply max
-         (map (λ (ls_) (compute-product n ls_))
-              (filter (\λ (ls) (<= n (length ls)))
-                      (break-at ls zero?)))))
+(define (euler-8 n ls)
+  (apply max 
+         (cons 0(map (λ (ls_) (compute-product n ls_))
+                     (filter (\λ (ls) (<= n (length ls)))
+                             (break-at ls zero?))))))
       
 
 ;;;---------------------------------------------------------------------------------------------------
@@ -67,5 +67,5 @@
                                        05886116467109405077541002256983155200055935729725
                                        71636269561882670428252483600823257530420752963450))))
 
-(define (test) (= 5832 (euler 4 ls)))
-(define (solve) (euler 13 ls))
+(define (test) (= 5832 (euler-8 4 ls)))
+(define (solve) (euler-8 13 ls))
