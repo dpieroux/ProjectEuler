@@ -5,7 +5,7 @@
 #lang racket/base
 
 (provide divisor? multiple? multiple-of-any?)
-(provide digits)
+(provide digits nbr-digits)
 
 ;;;---------------------------------------------------------------------------------------------------
 ;;; maximum, minimum
@@ -27,6 +27,12 @@
 ;;; digits
 ;;;---------------------------------------------------------------------------------------------------
 
+(define (nbr-digits n (b 10))
+  (let loop ([n n] [nd 0])
+    (if (zero? n)
+        nd
+        (loop (quotient n b) (add1 nd)))))      
+  
 (define (digits n #:base (b 10))
   (let loop ((n n) (ds '()))
     (let-values (((q r) (quotient/remainder n b)))
