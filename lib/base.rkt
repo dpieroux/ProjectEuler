@@ -4,6 +4,7 @@
 
 #lang racket/base
 
+(provide maximum minimum)
 (provide divisor? multiple? multiple-of-any?)
 (provide digits nbr-digits)
 
